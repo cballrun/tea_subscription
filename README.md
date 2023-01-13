@@ -26,8 +26,10 @@ Gems:
 4. Run command rails s
  ``` 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Schema
+
+![tea_schema](https://user-images.githubusercontent.com/106977961/212401300-c2e56d59-d358-4899-a0e9-f3842a71b6eb.PNG)
+
 
 ## Endpoints
 
