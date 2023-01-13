@@ -14,6 +14,7 @@ describe "Customer Subscriptions API" do
       get '/api/v1/customer_subscriptions', params: params
 
       expect(response).to be_successful
+      expect(response).to have_http_status(200)
 
       subscription_data = JSON.parse(response.body, symbolize_names: true)
       subscriptions = subscription_data[:data]
@@ -45,6 +46,7 @@ describe "Customer Subscriptions API" do
       post '/api/v1/customer_subscriptions', params: sub_params
 
       expect(response).to be_successful
+      expect(response).to have_http_status(201)
       expect(customer.subscriptions.count).to eq(1)
 
       cs_data = JSON.parse(response.body, symbolize_names: true)
@@ -71,6 +73,7 @@ describe "Customer Subscriptions API" do
       patch "/api/v1/customer_subscriptions/#{cs_1.id}", params: sub_params
       
       expect(response).to be_successful
+      expect(response).to have_http_status(200)
 
       cs_data = JSON.parse(response.body, symbolize_names: true)
       cs = cs_data[:data]
