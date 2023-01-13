@@ -32,7 +32,7 @@ describe "Customer Subscriptions API" do
       end
     end
 
-    it 'can subscribe a customer to a subscription' do
+    it 'can add a customer subscription' do
       customer = create(:customer)
       subscriptions = create_list(:subscription, 3)
 
@@ -40,15 +40,37 @@ describe "Customer Subscriptions API" do
                     subscription_id: subscriptions[1].id,
                     })
 
+      expect(customer.subscriptions.count).to eq(0)
+
       post '/api/v1/customer_subscriptions', params: sub_params
 
       expect(response).to be_successful
-
       expect(customer.subscriptions.count).to eq(1)
+
+      cs_data = JSON.parse(response.body, symbolize_names: true)
+      cs = cs_data[:data]
+      
+      expect(cs[:id].to_i).to be_a(Integer)
+      expect(cs[:type]).to eq("customer_subscription")
+      expect(cs[:attributes][:customer_id]).to eq(customer.id)
+      expect(cs[:attributes][:subscription_id]).to eq(subscriptions[1].id)
+      expect(cs[:attributes][:status]).to eq("active")
     end
 
-    it 'can unsubscribe a customers subscription' do
-      
+    it 'can cancel a customers subscription' do
+      customer = create(:customer)
+      subscriptions = create_list(:subscription, 3)
+      cs_1 = CustomerSubscription.create!(customer: customer, subscription: subscriptions[0], status: "active")
+      cs_2 = CustomerSubscription.create!(customer: customer, subscription: subscriptions[1], status: "active")
+      cs_3 = CustomerSubscription.create!(customer: customer, subscription: subscriptions[2], status: "cancelled")
+
+      sub_params = ({customer_subscription_id: cs_1.id,
+        status: "cancelled"
+        })
+
+      patch "/api/v1/customer_subscriptions/#{cs_1.id}", params: sub_params
+
+      expect(response).to be_successful
     end
   end
 end
