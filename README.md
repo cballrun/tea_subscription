@@ -38,7 +38,9 @@ Gems:
 GET `/customer_subscriptions`
 
 ```
-
+{
+customer_id: 1
+}
 
 
 ```
@@ -46,7 +48,28 @@ GET `/customer_subscriptions`
 #### Example Response
 
 ```
-
+{
+    "data": [
+        {
+            "id": "1",
+            "type": "subscription",
+            "attributes": {
+                "title": "Holiday",
+                "price": 22.1,
+                "frequency": "weekly"
+            }
+        },
+        {
+            "id": "2",
+            "type": "subscription",
+            "attributes": {
+                "title": "summer",
+                "price": 10.1,
+                "frequency": "biweekly"
+            }
+        }
+    ]
+}
 
 
 ```
@@ -56,6 +79,10 @@ GET `/customer_subscriptions`
 POST `/customer_subscriptions`
 
 ```
+{
+customer_id: 1,
+subscription_id: 3
+}
 
 
 
@@ -64,7 +91,17 @@ POST `/customer_subscriptions`
 #### Example Response
 
 ```
-
+{
+    "data": {
+        "id": "3",
+        "type": "customer_subscription",
+        "attributes": {
+            "customer_id": 1,
+            "subscription_id": 3,
+            "status": "active"
+        }
+    }
+}
 
 
 ```
@@ -74,7 +111,11 @@ POST `/customer_subscriptions`
 PATCH `/customer_subscriptions/#id`
 
 ```
+#id 1
 
+{
+status: "cancelled"
+}
 
 
 ```
@@ -82,7 +123,17 @@ PATCH `/customer_subscriptions/#id`
 #### Example Response
 
 ```
-
+{
+    "data": {
+        "id": "2",
+        "type": "customer_subscription",
+        "attributes": {
+            "customer_id": 1,
+            "subscription_id": 2,
+            "status": "cancelled"
+        }
+    }
+}
 
 
 ```
