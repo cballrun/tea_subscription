@@ -64,13 +64,22 @@ describe "Customer Subscriptions API" do
       cs_2 = CustomerSubscription.create!(customer: customer, subscription: subscriptions[1], status: "active")
       cs_3 = CustomerSubscription.create!(customer: customer, subscription: subscriptions[2], status: "cancelled")
 
-      sub_params = ({customer_subscription_id: cs_1.id,
+      sub_params = ({
         status: "cancelled"
         })
 
       patch "/api/v1/customer_subscriptions/#{cs_1.id}", params: sub_params
-
+      
       expect(response).to be_successful
+
+      cs_data = JSON.parse(response.body, symbolize_names: true)
+      cs = cs_data[:data]
+
+      expect(cs[:id].to_i).to be_a(Integer)
+      expect(cs[:type]).to eq("customer_subscription")
+      expect(cs[:attributes][:customer_id]).to eq(customer.id)
+      expect(cs[:attributes][:subscription_id]).to eq(subscriptions[0].id)
+      expect(cs[:attributes][:status]).to eq("cancelled")
     end
   end
 end

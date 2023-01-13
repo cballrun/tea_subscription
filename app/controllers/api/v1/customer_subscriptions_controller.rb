@@ -13,6 +13,14 @@ class Api::V1::CustomerSubscriptionsController < ApplicationController
   end
 
   def update
-    
+    cs = CustomerSubscription.find(params[:id])
+    cs.update!(customer_subscription_params)
+    render json: CustomerSubscriptionSerializer.new(cs)
+  end
+
+  private
+
+  def customer_subscription_params
+    params.permit(:status)
   end
 end
