@@ -1,10 +1,10 @@
-#Tea Subscription
+# Tea Subscription
 
-##Description
+## Description
 
 This is a back-end Rails API for a hypothetical tea subscription service. It utilizes RESTful routes and is designed to be consumed by a front-end team. This hypothetical front-end team could use this API to build out functionality for beginning a tea subscription, cancelling a tea subscription, and showing all of a user's subscriptions.
 
-##Technology
+## Technology
 
 Ruby 2.7.4
 Rails 7.0.4
@@ -17,7 +17,7 @@ Gems:
 *shoulda-matchers
 *jsonapi-serializer
 
-##Setup
+## Setup
 
  ``` 
 1. Clone repository to local machine
@@ -29,9 +29,9 @@ Gems:
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
-##Endpoints
+## Endpoints
 
-###Show all of a customer's subscriptions
+### Show all of a customer's subscriptions
 
 GET `/customer_subscriptions`
 
@@ -41,7 +41,15 @@ GET `/customer_subscriptions`
 
 ```
 
-###Create a new customer subscription
+#### Example Response
+
+```
+
+
+
+```
+
+### Create a new customer subscription
 
 POST `/customer_subscriptions`
 
@@ -51,7 +59,15 @@ POST `/customer_subscriptions`
 
 ```
 
-###Cancel a customer subscription
+#### Example Response
+
+```
+
+
+
+```
+
+### Cancel a customer subscription
 
 PATCH `/customer_subscriptions/#id`
 
@@ -61,22 +77,11 @@ PATCH `/customer_subscriptions/#id`
 
 ```
 
-Things you may want to cover:
+#### Example Response
 
-* Ruby version
+```
 
-* System dependencies
 
-* Configuration
 
-* Database creation
+```
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
