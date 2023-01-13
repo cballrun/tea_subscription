@@ -33,7 +33,18 @@ describe "Customer Subscriptions API" do
     end
 
     it 'can subscribe a customer to a subscription' do
+      customer = create(:customer)
+      subscriptions = create_list(:subscription, 3)
 
+      sub_params = ({customer_id: customer.id,
+                    subscription_id: subscriptions[1].id,
+                    })
+
+      post '/api/v1/customer_subscriptions', params: sub_params
+
+      expect(response).to be_successful
+
+      expect(customer.subscriptions.count).to eq(1)
     end
 
     it 'can unsubscribe a customers subscription' do
